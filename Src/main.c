@@ -56,7 +56,7 @@ int main(void) {
     GPIO_PinConfig_t pin14Config = {GPIOD, 14, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_PIN_RESET};
     GPIO_PinConfig_t pin15Config = {GPIOD, 15, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_PIN_RESET};
 
-    GPIO_Init(&pin12Config);
+    z(&pin12Config);
     GPIO_Init(&pin13Config);
     GPIO_Init(&pin14Config);
     GPIO_Init(&pin15Config);
