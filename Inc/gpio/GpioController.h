@@ -86,7 +86,7 @@ typedef struct {
 
 typedef struct {
     GPIO_TypeDef* port;
-    uint8_t pin_number;
+    uint16_t pin_number;
     GPIO_Mode mode;
     GPIO_Type output_type;
     GPIO_Speed speed;
