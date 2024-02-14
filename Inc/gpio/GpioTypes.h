@@ -37,7 +37,7 @@ typedef enum {
 	GPIO_PUPDR_PULL_UP = 1,
 	GPIO_PUPDR_PULL_DOWN = 2,
 	GPIO_PUPDR_RESERVED = 3
-} GPIO_Pupdr;
+} GPIO_Pull;
 
 typedef enum {
     GPIO_AF0 = 0,
