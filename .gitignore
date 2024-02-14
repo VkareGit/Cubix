@@ -92,3 +92,7 @@ STM32*RAM.ld
 # Ignore all log and temp files
 *.log
 *.tmp
+
+Startup/*
+
+Cubix Debug.cfg
