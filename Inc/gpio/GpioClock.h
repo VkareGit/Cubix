@@ -1,0 +1,26 @@
+/*
+ * GpioClock.h
+ *
+ *  Created on: Feb 15, 2024
+ *      Author: vkare
+ */
+
+#ifndef GPIO_CLOCK_H_
+#define GPIO_CLOCK_H_
+
+#include "GpioTypes.h"
+#include "stm32/stm32f407xx.h"
+
+#define __GPIOA_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN)
+#define __GPIOB_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN)
+#define __GPIOC_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN)
+#define __GPIOD_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN)
+#define __GPIOE_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN)
+#define __GPIOF_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOFEN)
+#define __GPIOG_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOGEN)
+#define __GPIOH_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOHEN)
+#define __GPIOI_CLK_ENABLE() (RCC->AHB1ENR |= RCC_AHB1ENR_GPIOIEN)
+
+void GPIO_EnableClock(GPIO_TypeDef* GPIOx);
+
+#endif /* GPIO_CLOCK_H_ */
