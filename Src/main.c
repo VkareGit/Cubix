@@ -1,11 +1,5 @@
 #include "gpio/GpioController.h"
 
-void delay(int time)
-{
-	int i;
-	for(i = 0 ; i < time * 570; i++) {}
-}
-
 
 int main(void) {
 

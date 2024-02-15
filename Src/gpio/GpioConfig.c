@@ -58,18 +58,6 @@ void GPIO_ModifyRegister(GPIO_TypeDef* GPIOx, uint32_t* reg, uint16_t Pin, uint3
     *reg = reg_val;
 }
 
-GPIO_Status GPIO_ConfigureModeStruct(GPIO_InitTypeDef *config) {
-    if (!IS_GPIO_PIN(config->pin_number)) {
-        return GPIO_STATUS_INVALID_PIN;
-    }
-    if (!IS_GPIO_MODE(config->mode)) {
-        return GPIO_STATUS_INVALID_MODE;
-    }
-
-    GPIO_ModifyRegister(config->port, &config->port->MODER, config->pin_number, config->mode, GPIO_MODE_MASK);
-    return GPIO_STATUS_OK;
-}
-
 GPIO_Status GPIO_ConfigureModeDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GPIO_Mode Mode) {
     if (!IS_GPIO_PIN(Pin)) {
         return GPIO_STATUS_INVALID_PIN;
@@ -82,16 +70,8 @@ GPIO_Status GPIO_ConfigureModeDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GPIO_Mod
     return GPIO_STATUS_OK;
 }
 
-GPIO_Status GPIO_ConfigureSpeedStruct(GPIO_InitTypeDef *config) {
-    if (!IS_GPIO_PIN(config->pin_number)) {
-        return GPIO_STATUS_INVALID_PIN;
-    }
-    if (!IS_GPIO_SPEED(config->speed)) {
-        return GPIO_STATUS_INVALID_SPEED;
-    }
-
-    GPIO_ModifyRegister(config->port, &config->port->OSPEEDR, config->pin_number, config->speed, GPIO_MODE_MASK);
-    return GPIO_STATUS_OK;
+GPIO_Status GPIO_ConfigureModeStruct(GPIO_InitTypeDef *config) {
+    return GPIO_ConfigureModeDirect(config->port,config->pin_number,config->mode);
 }
 
 GPIO_Status GPIO_ConfigureSpeedDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GPIO_Speed Speed) {
@@ -106,18 +86,8 @@ GPIO_Status GPIO_ConfigureSpeedDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GPIO_Sp
     return GPIO_STATUS_OK;
 }
 
-GPIO_Status GPIO_ConfigureOutputTypeStruct(GPIO_InitTypeDef *config) {
-    if (!IS_GPIO_PIN(config->pin_number)) {
-        return GPIO_STATUS_INVALID_PIN;
-    }
-    if (!IS_GPIO_TYPE(config->output_type)) {
-        return GPIO_STATUS_INVALID_TYPE;
-    }
-
-    uint32_t newVal = (config->output_type == GPIO_TYPE_OPEN_DRAIN) ? GPIO_OUTPUT_TYPE_MASK : GPIO_RESET_VALUE;
-    GPIO_ModifyRegister(config->port, &config->port->OTYPER, config->pin_number, newVal, GPIO_OUTPUT_TYPE_MASK);
-
-    return GPIO_STATUS_OK;
+GPIO_Status GPIO_ConfigureSpeedStruct(GPIO_InitTypeDef *config) {
+    return GPIO_ConfigureSpeedDirect(config->port,config->pin_number,config->speed);
 }
 
 GPIO_Status GPIO_ConfigureOutputTypeDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GPIO_Type Type) {
@@ -134,16 +104,8 @@ GPIO_Status GPIO_ConfigureOutputTypeDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GP
     return GPIO_STATUS_OK;
 }
 
-GPIO_Status GPIO_ConfigurePullStruct(GPIO_InitTypeDef *config) {
-    if (!IS_GPIO_PIN(config->pin_number)) {
-        return GPIO_STATUS_INVALID_PIN;
-    }
-    if (!IS_GPIO_PULL(config->pull)) {
-        return GPIO_STATUS_INVALID_PULL;
-    }
-
-    GPIO_ModifyRegister(config->port, &config->port->PUPDR, config->pin_number, config->pull, GPIO_MODE_MASK);
-    return GPIO_STATUS_OK;
+GPIO_Status GPIO_ConfigureOutputTypeStruct(GPIO_InitTypeDef *config) {
+    return GPIO_ConfigureOutputTypeDirect(config->port,config->pin_number,config->output_type);
 }
 
 GPIO_Status GPIO_ConfigurePullDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GPIO_Pull Pull) {
@@ -156,4 +118,8 @@ GPIO_Status GPIO_ConfigurePullDirect(GPIO_TypeDef* GPIOx, uint16_t Pin, GPIO_Pul
 
     GPIO_ModifyRegister(GPIOx, &GPIOx->PUPDR, Pin, Pull, GPIO_MODE_MASK);
     return GPIO_STATUS_OK;
+}
+
+GPIO_Status GPIO_ConfigurePullStruct(GPIO_InitTypeDef *config) {
+    return GPIO_ConfigurePullDirect(config->port,config->pin_number,config->pull);
 }
