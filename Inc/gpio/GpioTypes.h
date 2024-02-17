@@ -31,6 +31,11 @@
 
 #define GPIO_PIN_MASK            ((uint32_t)0x0000FFFF)
 
+#define GPIO_READ_PIN(GPIOx, Pin) (((GPIOx)->IDR & (Pin)) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+
+#define GPIO_SET_RESET_PIN(GPIOx, Pin, PinState) \
+    ((PinState) == GPIO_PIN_SET) ? ((GPIOx)->BSRR = (Pin)) : ((GPIOx)->BSRR = ((Pin) << GPIO_BSRR_RESET_OFFSET))
+
 #define IS_GPIO_PIN_STATE(STATE) (((STATE) == GPIO_PIN_RESET) || ((STATE) == GPIO_PIN_SET))
 
 #define IS_GPIO_PIN(PIN)           (((PIN) & GPIO_PIN_MASK ) != (uint32_t)0x00)

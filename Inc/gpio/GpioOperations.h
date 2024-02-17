@@ -10,8 +10,9 @@
 
 #include "GpioTypes.h"
 #include "stm32/stm32f407xx.h"
+#include "Stm32Macros.h"
 
-#define GPIO_BSRR_RESET_OFFSET  16
+#define GPIO_BSRR_RESET_OFFSET 16
 
 void GPIO_TogglePinStruct(GPIO_InitTypeDef *config);
 void GPIO_TogglePinDirect(GPIO_TypeDef* GPIOx, uint16_t Pin);
